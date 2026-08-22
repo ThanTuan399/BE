@@ -7,19 +7,36 @@ generator client {
   provider = "prisma-client-js"
 }
 
+// Bảng Xác thực trung tâm (Tài khoản)
+model NguoiDung {
+  id          Int       @id @default(autoincrement())
+  tenDangNhap String    @unique
+  matKhau     String
+  vaiTro      String    // "BAC_SI", "BENH_NHAN", "ADMIN"
+
+  bacSi       BacSi?
+  benhNhan    BenhNhan?
+}
+
 // 1. Bảng Bác sĩ
 model BacSi {
   id          Int        @id @default(autoincrement())
+  nguoiDungId Int        @unique
   hoTen       String
   soDienThoai String?
+
+  nguoiDung   NguoiDung  @relation(fields: [nguoiDungId], references: [id])
   lichKhams   LichKham[]
 }
 
 // 2. Bảng Bệnh nhân
 model BenhNhan {
   id          Int        @id @default(autoincrement())
+  nguoiDungId Int        @unique
   hoTen       String
   soDienThoai String
+
+  nguoiDung   NguoiDung  @relation(fields: [nguoiDungId], references: [id])
   lichKhams   LichKham[]
 }
 
