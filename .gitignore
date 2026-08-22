@@ -1,0 +1,9 @@
+# Bỏ qua thư mục thư viện Node.js (cực kỳ nặng)
+node_modules/
+
+# Bỏ qua file chứa mật khẩu/chuỗi kết nối Database local
+.env
+
+# Bỏ qua file rác hệ thống
+.DS_Store
+*.log

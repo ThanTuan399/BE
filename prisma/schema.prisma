@@ -1,0 +1,58 @@
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// 1. Bảng Bác sĩ
+model BacSi {
+  id          Int        @id @default(autoincrement())
+  hoTen       String
+  soDienThoai String?
+  lichKhams   LichKham[]
+}
+
+// 2. Bảng Bệnh nhân
+model BenhNhan {
+  id          Int        @id @default(autoincrement())
+  hoTen       String
+  soDienThoai String
+  lichKhams   LichKham[]
+}
+
+// 3. Bảng Lịch khám (Trung tâm)
+model LichKham {
+  id              Int       @id @default(autoincrement())
+  bacSiId         Int
+  benhNhanId      Int
+  thoiGianBatDau  DateTime
+  thoiGianKetThuc DateTime
+  trangThai       String    @default("Chờ khám")
+
+  bacSi    BacSi     @relation(fields: [bacSiId], references: [id])
+  benhNhan BenhNhan  @relation(fields: [benhNhanId], references: [id])
+  hoSoKham HoSoKham?
+}
+
+// 4. Bảng Hồ sơ khám
+model HoSoKham {
+  id         Int        @id @default(autoincrement())
+  lichKhamId Int        @unique // 1 Lịch khám chỉ có 1 Hồ sơ
+  trieuChung String     @db.Text
+  chanDoan   String     @db.Text
+
+  lichKham  LichKham   @relation(fields: [lichKhamId], references: [id])
+  donThuocs DonThuoc[]
+}
+
+// 5. Bảng Đơn thuốc
+model DonThuoc {
+  id           Int      @id @default(autoincrement())
+  hoSoKhamId   Int
+  chiTietThuoc String   @db.Text
+
+  hoSoKham HoSoKham @relation(fields: [hoSoKhamId], references: [id])
+}
