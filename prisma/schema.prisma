@@ -1,5 +1,5 @@
 datasource db {
-  provider = "mysql"
+  provider = "mongodb"
   url      = env("DATABASE_URL")
 }
 
@@ -9,7 +9,7 @@ generator client {
 
 // Bảng Xác thực trung tâm (Tài khoản)
 model NguoiDung {
-  id          Int       @id @default(autoincrement())
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
   tenDangNhap String    @unique
   matKhau     String
   vaiTro      String    // "BAC_SI", "BENH_NHAN", "ADMIN"
@@ -20,31 +20,31 @@ model NguoiDung {
 
 // 1. Bảng Bác sĩ
 model BacSi {
-  id          Int        @id @default(autoincrement())
-  nguoiDungId Int        @unique
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  nguoiDungId String    @unique @db.ObjectId
   hoTen       String
   soDienThoai String?
 
-  nguoiDung   NguoiDung  @relation(fields: [nguoiDungId], references: [id])
+  nguoiDung   NguoiDung @relation(fields: [nguoiDungId], references: [id])
   lichKhams   LichKham[]
 }
 
 // 2. Bảng Bệnh nhân
 model BenhNhan {
-  id          Int        @id @default(autoincrement())
-  nguoiDungId Int        @unique
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  nguoiDungId String    @unique @db.ObjectId
   hoTen       String
   soDienThoai String
 
-  nguoiDung   NguoiDung  @relation(fields: [nguoiDungId], references: [id])
+  nguoiDung   NguoiDung @relation(fields: [nguoiDungId], references: [id])
   lichKhams   LichKham[]
 }
 
-// 3. Bảng Lịch khám (Trung tâm)
+// 3. Bảng Lịch khám
 model LichKham {
-  id              Int       @id @default(autoincrement())
-  bacSiId         Int
-  benhNhanId      Int
+  id              String    @id @default(auto()) @map("_id") @db.ObjectId
+  bacSiId         String    @db.ObjectId
+  benhNhanId      String    @db.ObjectId
   thoiGianBatDau  DateTime
   thoiGianKetThuc DateTime
   trangThai       String    @default("Chờ khám")
@@ -56,10 +56,10 @@ model LichKham {
 
 // 4. Bảng Hồ sơ khám
 model HoSoKham {
-  id         Int        @id @default(autoincrement())
-  lichKhamId Int        @unique // 1 Lịch khám chỉ có 1 Hồ sơ
-  trieuChung String     @db.Text
-  chanDoan   String     @db.Text
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  lichKhamId String    @unique @db.ObjectId
+  trieuChung String
+  chanDoan   String
 
   lichKham  LichKham   @relation(fields: [lichKhamId], references: [id])
   donThuocs DonThuoc[]
@@ -67,9 +67,9 @@ model HoSoKham {
 
 // 5. Bảng Đơn thuốc
 model DonThuoc {
-  id           Int      @id @default(autoincrement())
-  hoSoKhamId   Int
-  chiTietThuoc String   @db.Text
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  hoSoKhamId   String   @db.ObjectId
+  chiTietThuoc String
 
   hoSoKham HoSoKham @relation(fields: [hoSoKhamId], references: [id])
 }
