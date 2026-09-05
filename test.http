@@ -1,0 +1,26 @@
+### Test API Đăng ký Bác sĩ
+POST http://localhost:5000/api/auth/register
+Content-Type: application/json
+
+{
+  "tenDangNhap": "bacsianh",
+  "matKhau": "123456",
+  "vaiTro": "BAC_SI",
+  "hoTen": "BS. Nguyễn Văn Anh",
+  "soDienThoai": "0912345678"
+}
+
+### Test API Đặt lịch khám
+POST http://localhost:5000/api/public/dat-lich
+Content-Type: application/json
+
+{
+  "hoTen": "Nguyen Van B",
+  "soDienThoai": "0988888888",
+  "bacSiId": "6a9b02d5992203b634b40f59",
+  "thoiGianBatDau": "2026-09-10T08:00:00Z",
+  "thoiGianKetThuc": "2026-09-10T09:00:00Z"
+}
+
+### Test API Tra cứu lịch theo SĐT
+GET http://localhost:5000/api/public/tra-cuu/0988888888
