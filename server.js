@@ -6,6 +6,9 @@ const authRoute = require('./src/routes/auth');
 
 const publicRoute = require('./src/routes/public');
 
+const bacSiRoute = require('./src/routes/bacSi');
+
+app.use('/api/bac-si', bacSiRoute);
 app.use(express.json());
 app.use('/api/public', publicRoute);
 

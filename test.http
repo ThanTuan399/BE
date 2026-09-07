@@ -24,3 +24,41 @@ Content-Type: application/json
 
 ### Test API Tra cứu lịch theo SĐT
 GET http://localhost:5000/api/public/tra-cuu/0988888888
+
+
+### 1. Đăng nhập Bác sĩ để lấy Token JWT
+POST http://localhost:5000/api/auth/login
+Content-Type: application/json
+
+{
+  "tenDangNhap": "bacsianh",
+  "matKhau": "123456"
+}
+
+### 2. Xem danh sách lịch khám của Bác sĩ (Nhớ dán Token vào Header)
+GET http://localhost:5000/api/bac-si/lich-kham
+Authorization: Bearer DÁN_TOKEN_JWT_VÀO_ĐÂY
+
+### 3. Thực hiện Hoàn thành khám (Chuẩn thành công)
+POST http://localhost:5000/api/bac-si/hoan-thanh-kham
+Authorization: Bearer DÁN_TOKEN_JWT_VÀO_ĐÂY
+Content-Type: application/json
+
+{
+  "lichKhamId": "DÁN_ID_LỊCH_KHAM_CỦA_BÁC_SĨ",
+  "trieuChung": "Sốt nhẹ, ho kéo dài 3 ngày",
+  "chanDoan": "Viêm phế quản cấp",
+  "chiTietThuoc": "1. Paracetamol 500mg (2 viên/ngày)\n2. Augmentin 1g (2 viên/ngày)"
+}
+
+### 4. Test Edge Case: Gửi lại lần 2 ca khám đã Hoàn thành (Báo lỗi 400)
+POST http://localhost:5000/api/bac-si/hoan-thanh-kham
+Authorization: Bearer DÁN_TOKEN_JWT_VÀO_ĐÂY
+Content-Type: application/json
+
+{
+  "lichKhamId": "DÁN_ID_LỊCH_KHAM_ĐÃ_HOÀN_THÀNH_Ở_TRÊN",
+  "trieuChung": "Triệu chứng thử lại",
+  "chanDoan": "Chẩn đoán thử lại",
+  "chiTietThuoc": "Thuốc thử lại"
+}
