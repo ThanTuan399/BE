@@ -1,4 +1,5 @@
 ### Test API Đăng ký Bác sĩ
+// BỆNH NHÂN
 POST http://localhost:5000/api/auth/register
 Content-Type: application/json
 
@@ -26,6 +27,17 @@ Content-Type: application/json
 GET http://localhost:5000/api/public/tra-cuu/0988888888
 
 
+
+
+
+
+
+
+
+
+
+
+// BÁC SĨ 
 ### 1. Đăng nhập Bác sĩ để lấy Token JWT
 POST http://localhost:5000/api/auth/login
 Content-Type: application/json
@@ -37,15 +49,15 @@ Content-Type: application/json
 
 ### 2. Xem danh sách lịch khám của Bác sĩ (Nhớ dán Token vào Header)
 GET http://localhost:5000/api/bac-si/lich-kham
-Authorization: Bearer DÁN_TOKEN_JWT_VÀO_ĐÂY
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTliMDJkNTk5MjIwM2I2MzRiNDBmNTgiLCJ0ZW5EYW5nTmhhcCI6ImJhY3NpYW5oIiwidmFpVHJvIjoiQkFDX1NJIiwiYmFjU2lJZCI6IjZhOWIwMmQ1OTkyMjAzYjYzNGI0MGY1OSIsImlhdCI6MTc4ODc5MDk1OCwiZXhwIjoxNzg4ODc3MzU4fQ.iY63SuPJyRAdeDtByINKn0bBfcxuzNK4kHxht9lbwSI
 
 ### 3. Thực hiện Hoàn thành khám (Chuẩn thành công)
 POST http://localhost:5000/api/bac-si/hoan-thanh-kham
-Authorization: Bearer DÁN_TOKEN_JWT_VÀO_ĐÂY
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTliMDJkNTk5MjIwM2I2MzRiNDBmNTgiLCJ0ZW5EYW5nTmhhcCI6ImJhY3NpYW5oIiwidmFpVHJvIjoiQkFDX1NJIiwiYmFjU2lJZCI6IjZhOWIwMmQ1OTkyMjAzYjYzNGI0MGY1OSIsImlhdCI6MTc4ODc5MDk1OCwiZXhwIjoxNzg4ODc3MzU4fQ.iY63SuPJyRAdeDtByINKn0bBfcxuzNK4kHxht9lbwSI
 Content-Type: application/json
 
 {
-  "lichKhamId": "DÁN_ID_LỊCH_KHAM_CỦA_BÁC_SĨ",
+  "lichKhamId": "6a9b07334b85148d7b3f3e64",
   "trieuChung": "Sốt nhẹ, ho kéo dài 3 ngày",
   "chanDoan": "Viêm phế quản cấp",
   "chiTietThuoc": "1. Paracetamol 500mg (2 viên/ngày)\n2. Augmentin 1g (2 viên/ngày)"
@@ -53,12 +65,77 @@ Content-Type: application/json
 
 ### 4. Test Edge Case: Gửi lại lần 2 ca khám đã Hoàn thành (Báo lỗi 400)
 POST http://localhost:5000/api/bac-si/hoan-thanh-kham
-Authorization: Bearer DÁN_TOKEN_JWT_VÀO_ĐÂY
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTliMDJkNTk5MjIwM2I2MzRiNDBmNTgiLCJ0ZW5EYW5nTmhhcCI6ImJhY3NpYW5oIiwidmFpVHJvIjoiQkFDX1NJIiwiYmFjU2lJZCI6IjZhOWIwMmQ1OTkyMjAzYjYzNGI0MGY1OSIsImlhdCI6MTc4ODc5MDk1OCwiZXhwIjoxNzg4ODc3MzU4fQ.iY63SuPJyRAdeDtByINKn0bBfcxuzNK4kHxht9lbwSI
 Content-Type: application/json
 
 {
-  "lichKhamId": "DÁN_ID_LỊCH_KHAM_ĐÃ_HOÀN_THÀNH_Ở_TRÊN",
+  "lichKhamId": "6a9b07334b85148d7b3f3e64",
   "trieuChung": "Triệu chứng thử lại",
   "chanDoan": "Chẩn đoán thử lại",
   "chiTietThuoc": "Thuốc thử lại"
 }
+
+
+
+
+
+
+
+
+// ADMIN
+### 1. Đăng ký tài khoản Admin (Nếu chưa có)
+POST http://localhost:5000/api/auth/register
+Content-Type: application/json
+
+{
+  "tenDangNhap": "admin01",
+  "matKhau": "123456",
+  "vaiTro": "ADMIN"
+}
+
+### 2. Đăng nhập Admin lấy Token
+POST http://localhost:5000/api/auth/login
+Content-Type: application/json
+
+{
+  "tenDangNhap": "admin01",
+  "matKhau": "123456"
+}
+
+### 3. Xem Báo cáo Thống kê Toàn hệ thống
+GET http://localhost:5000/api/admin/thong-ke
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTllZDc4ODkyNmJhMTA3ZGZmZTcxZjkiLCJ0ZW5EYW5nTmhhcCI6ImFkbWluMDEiLCJ2YWlUcm8iOiJBRE1JTiIsImJhY1NpSWQiOm51bGwsImlhdCI6MTc4ODc5NTc2MCwiZXhwIjoxNzg4ODgyMTYwfQ.RKZWVhH4zFk2rbKUl2yW0LBk57drj9m65VcIMcRZ2zI
+### 4. Xem Toàn bộ Lịch khám Phòng khám
+GET http://localhost:5000/api/admin/lich-kham
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTllZDc4ODkyNmJhMTA3ZGZmZTcxZjkiLCJ0ZW5EYW5nTmhhcCI6ImFkbWluMDEiLCJ2YWlUcm8iOiJBRE1JTiIsImJhY1NpSWQiOm51bGwsImlhdCI6MTc4ODc5NTc2MCwiZXhwIjoxNzg4ODgyMTYwfQ.RKZWVhH4zFk2rbKUl2yW0LBk57drj9m65VcIMcRZ2zI
+### 4. Xem Toàn bộ Lịch khám Phòng khám
+
+### 1. [THÊM] Admin thêm Bác sĩ mới
+POST http://localhost:5000/api/admin/bac-si
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTllZDc4ODkyNmJhMTA3ZGZmZTcxZjkiLCJ0ZW5EYW5nTmhhcCI6ImFkbWluMDEiLCJ2YWlUcm8iOiJBRE1JTiIsImJhY1NpSWQiOm51bGwsImlhdCI6MTc4ODc5NjMzNiwiZXhwIjoxNzg4ODgyNzM2fQ.jkZ4bucG8svZ7TRXYLQ_RFx2UkZBuVMBZHDVt8j6sI0
+Content-Type: application/json
+
+{
+  "tenDangNhap": "bacsi_tran",
+  "matKhau": "123456",
+  "hoTen": "BS. Trần Văn C",
+  "soDienThoai": "0911223344"
+}
+
+### 2. [SỬA] Admin cập nhật tên & SĐT Bác sĩ
+PUT http://localhost:5000/api/admin/bac-si/DÁN_ID_BAC_SI_VÀO_ĐÂY
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTllZDc4ODkyNmJhMTA3ZGZmZTcxZjkiLCJ0ZW5EYW5nTmhhcCI6ImFkbWluMDEiLCJ2YWlUcm8iOiJBRE1JTiIsImJhY1NpSWQiOm51bGwsImlhdCI6MTc4ODc5NjMzNiwiZXhwIjoxNzg4ODgyNzM2fQ.jkZ4bucG8svZ7TRXYLQ_RFx2UkZBuVMBZHDVt8j6sI0
+Content-Type: application/json
+
+{
+  "hoTen": "BS. CKI Trần Văn C",
+  "soDienThoai": "0999888777"
+}
+
+### 3. [XÓA] Admin xóa ca hẹn khám
+DELETE http://localhost:5000/api/admin/lich-kham/DÁN_ID_LICH_KHAM_VÀO_ĐÂY
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTllZDc4ODkyNmJhMTA3ZGZmZTcxZjkiLCJ0ZW5EYW5nTmhhcCI6ImFkbWluMDEiLCJ2YWlUcm8iOiJBRE1JTiIsImJhY1NpSWQiOm51bGwsImlhdCI6MTc4ODc5NjQ0MywiZXhwIjoxNzg4ODgyODQzfQ.qM4UYnYVzjOqAauExJr3WBpOrHnYj4m28RJaCFc3Ddo
+
+### 4. [XÓA] Admin xóa Bác sĩ khỏi hệ thống
+DELETE http://localhost:5000/api/admin/bac-si/DÁN_ID_BAC_SI_VÀO_ĐÂY
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTllZDc4ODkyNmJhMTA3ZGZmZTcxZjkiLCJ0ZW5EYW5nTmhhcCI6ImFkbWluMDEiLCJ2YWlUcm8iOiJBRE1JTiIsImJhY1NpSWQiOm51bGwsImlhdCI6MTc4ODc5NjQ0MywiZXhwIjoxNzg4ODgyODQzfQ.qM4UYnYVzjOqAauExJr3WBpOrHnYj4m28RJaCFc3Ddo
