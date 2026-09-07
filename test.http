@@ -116,26 +116,26 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTllZ
 Content-Type: application/json
 
 {
-  "tenDangNhap": "bacsi_tran",
+  "tenDangNhap": "bacsi_hoan",
   "matKhau": "123456",
   "hoTen": "BS. Trần Văn C",
   "soDienThoai": "0911223344"
 }
 
 ### 2. [SỬA] Admin cập nhật tên & SĐT Bác sĩ
-PUT http://localhost:5000/api/admin/bac-si/DÁN_ID_BAC_SI_VÀO_ĐÂY
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTllZDc4ODkyNmJhMTA3ZGZmZTcxZjkiLCJ0ZW5EYW5nTmhhcCI6ImFkbWluMDEiLCJ2YWlUcm8iOiJBRE1JTiIsImJhY1NpSWQiOm51bGwsImlhdCI6MTc4ODc5NjMzNiwiZXhwIjoxNzg4ODgyNzM2fQ.jkZ4bucG8svZ7TRXYLQ_RFx2UkZBuVMBZHDVt8j6sI0
+PUT http://localhost:5000/api/admin/bac-si/6a9b02d5992203b634b40f59
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTllZDc4ODkyNmJhMTA3ZGZmZTcxZjkiLCJ0ZW5EYW5nTmhhcCI6ImFkbWluMDEiLCJ2YWlUcm8iOiJBRE1JTiIsImJhY1NpSWQiOm51bGwsImlhdCI6MTc4ODc5NzAwMCwiZXhwIjoxNzg4ODgzNDAwfQ.dQi7HS1jRI1sh6j_NA6HOYuj4VT3OL8NRgQjc9M2q0E
 Content-Type: application/json
 
 {
-  "hoTen": "BS. CKI Trần Văn C",
-  "soDienThoai": "0999888777"
+  "hoTen": "BS. thanh nhan",
+  "soDienThoai": "0999888445"
 }
 
 ### 3. [XÓA] Admin xóa ca hẹn khám
-DELETE http://localhost:5000/api/admin/lich-kham/DÁN_ID_LICH_KHAM_VÀO_ĐÂY
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTllZDc4ODkyNmJhMTA3ZGZmZTcxZjkiLCJ0ZW5EYW5nTmhhcCI6ImFkbWluMDEiLCJ2YWlUcm8iOiJBRE1JTiIsImJhY1NpSWQiOm51bGwsImlhdCI6MTc4ODc5NjQ0MywiZXhwIjoxNzg4ODgyODQzfQ.qM4UYnYVzjOqAauExJr3WBpOrHnYj4m28RJaCFc3Ddo
+DELETE http://localhost:5000/api/admin/lich-kham/6a9b07334b85148d7b3f3e64
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTllZDc4ODkyNmJhMTA3ZGZmZTcxZjkiLCJ0ZW5EYW5nTmhhcCI6ImFkbWluMDEiLCJ2YWlUcm8iOiJBRE1JTiIsImJhY1NpSWQiOm51bGwsImlhdCI6MTc4ODc5NzAwMCwiZXhwIjoxNzg4ODgzNDAwfQ.dQi7HS1jRI1sh6j_NA6HOYuj4VT3OL8NRgQjc9M2q0E
 
 ### 4. [XÓA] Admin xóa Bác sĩ khỏi hệ thống
-DELETE http://localhost:5000/api/admin/bac-si/DÁN_ID_BAC_SI_VÀO_ĐÂY
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTllZDc4ODkyNmJhMTA3ZGZmZTcxZjkiLCJ0ZW5EYW5nTmhhcCI6ImFkbWluMDEiLCJ2YWlUcm8iOiJBRE1JTiIsImJhY1NpSWQiOm51bGwsImlhdCI6MTc4ODc5NjQ0MywiZXhwIjoxNzg4ODgyODQzfQ.qM4UYnYVzjOqAauExJr3WBpOrHnYj4m28RJaCFc3Ddo
+DELETE http://localhost:5000/api/admin/bac-si/6a9b02d5992203b634b40f59
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTllZDc4ODkyNmJhMTA3ZGZmZTcxZjkiLCJ0ZW5EYW5nTmhhcCI6ImFkbWluMDEiLCJ2YWlUcm8iOiJBRE1JTiIsImJhY1NpSWQiOm51bGwsImlhdCI6MTc4ODc5NzAwMCwiZXhwIjoxNzg4ODgzNDAwfQ.dQi7HS1jRI1sh6j_NA6HOYuj4VT3OL8NRgQjc9M2q0E
