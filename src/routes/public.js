@@ -3,7 +3,7 @@ const router = express.Router();
 const BenhNhan = require('../models/BenhNhan');
 const LichKham = require('../models/LichKham');
 
-// 1. API BỆNH NHÂN ĐẶT LỊCH: POST /api/public/dat-lich
+// 1. API BỆNH NHÂN ĐẶT LỊCH
 router.post('/dat-lich', async (req, res) => {
   try {
     const { hoTen, soDienThoai, bacSiId, thoiGianBatDau, thoiGianKetThuc } = req.body;
@@ -55,7 +55,7 @@ router.post('/dat-lich', async (req, res) => {
   }
 });
 
-// 2. API TRA CỨU LỊCH THEO SĐT: GET /api/public/tra-cuu/:soDienThoai
+// 2. API TRA CỨU LỊCH THEO SĐT
 router.get('/tra-cuu/:soDienThoai', async (req, res) => {
   try {
     const { soDienThoai } = req.params;
@@ -77,6 +77,29 @@ router.get('/tra-cuu/:soDienThoai', async (req, res) => {
   } catch (error) {
     console.error(error);
     return res.status(500).json({ message: "Lỗi server khi tra cứu!" });
+  }
+});
+
+
+// 3. API HỦY LỊCH KHÁM
+router.patch('/huy-lich/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const lichKham = await LichKham.findById(id);
+
+    if (!lichKham) {
+      return res.status(404).json({ message: "Không tìm thấy lịch khám!" });
+    }
+    if (lichKham.trangThai !== "Chờ khám") {
+      return res.status(400).json({ message: "Chỉ có thể hủy lịch khi ca hẹn đang ở trạng thái 'Chờ khám'!" });
+    }
+
+    lichKham.trangThai = "Đã hủy";
+    await lichKham.save();
+
+    return res.json({ message: "Hủy lịch khám thành công!", data: lichKham });
+  } catch (error) {
+    return res.status(500).json({ message: "Lỗi server khi thực hiện hủy lịch!" });
   }
 });
 

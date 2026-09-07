@@ -1,0 +1,36 @@
+1. Khai báo 2 Remote với 2 tên khác nhau trong Terminal:
+# 1. Tạo remote tên là 'team' trỏ tới Repo Nhóm
+git remote add team https://github.com/Xay-d-ng-h-th-ng-phong-kham/phongkham_Data.git
+
+# 2. Tạo remote tên là 'personal' trỏ tới Repo Cá nhân
+git remote add personal https://github.com/ThanTuan399/BE.git
+
+# 3. Kiểm tra lại danh sách remote
+git remote -v
+
+2. Các lệnh đẩy code hàng ngày:
+# Gom và lưu thay đổi
+git add .
+git commit -m "feat: cap nhat du an"
+
+# Đẩy code lên Repo Nhóm
+git push team main
+
+# Đẩy code lên Repo Cá nhân
+git push personal main
+
+Cách 2: Tự động Push lên cả 2 Repo cùng lúc bằng 1 câu lệnh
+# 1. Đặt URL Repo Nhóm vào origin
+git remote set-url --add --push origin https://github.com/Xay-d-ng-h-th-ng-phong-kham/phongkham_Data.git
+
+# 2. Thêm URL Repo Cá nhân vào origin
+git remote set-url --add --push origin https://github.com/ThanTuan399/BE.git
+
+# 3. Kiểm tra lại cấu hình
+git remote -v
+
+2. Lệnh đẩy code 1 lần duy nhất cho cả 2 nơi:
+
+git add .
+git commit -m "feat: cap nhat du an"
+git push origin main
