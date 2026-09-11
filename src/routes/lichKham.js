@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const prisma = require('../lib/prisma');
 
 // API Đặt lịch khám: POST /api/lich-kham/dat-lich
 router.post('/dat-lich', async (req, res) => {
